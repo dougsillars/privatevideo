@@ -1,15 +1,35 @@
-# shareavideo
-Share a video with your friends to watch together!
+# Bumper a video
+
+[![badge](https://img.shields.io/twitter/follow/api_video?style=social)](https://twitter.com/intent/follow?screen_name=api_video)
+
+[![badge](https://img.shields.io/github/stars/apivideo/bumperavideo?style=social)](https://github.com/apivideo/bumperavideo)
+
+[![badge](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video)](https://community.api.video)
+
+![](https://github.com/apivideo/API_OAS_file/blob/master/apivideo_banner.png)
+
+<h1 align="center">api.video secure a video</h1>
+
+[api.video](https://api.video) is the video infrastructure for product builders. Lightning fast video APIs for integrating, scaling, and managing on-demand & low latency live streaming features in your app.
 
 
-Built with NodeJS, this app uses FFMPEG to stream a recorded video as a livestream.  Sample app at [share.a.video](https://share.a.video), and a blogpost walking through the code at [api.video](https://api.video/blog/tutorials/sharing-a-video-sending-video-on-demand-via-livestream).
+## Secure a video
 
-You'll need an API key in your .env file.  Your server will need FFMPEG installed.
+Secure a video is NodeJS application that uses the api.video NodeJs API client.  It makes one request to the API to retrieve a private video URL (these are unique, and can only be used once)
 
-Install the Node dependencies (npm install)
+```
+	const client = new apiVideo.Client({ apiKey: apiVideoKey });
+	let videoId = "vitkytkieTnEvUjKE0VQpd2";
+	let privateVideo = client.videos.get(videoId);
+```
 
-start the app (npm start)
+We extract the playerURL from the JSOn response, and render it on the webpage:
 
-The app will be running on localhost:3030
+```
+var playerUrl= (pvtVideo.assets.iframe);
+console.log("playerUrl",(playerUrl));
+var player = {"playerUrl": playerUrl};
+return res.render('index', player);
+```
 
-https://embed.api.video/vod/vi6Y6QrXbThm6EN7DqO9913e#autoplay
+The video will play, but if the user clicks the link to watch it in a new tab - the video will not play.

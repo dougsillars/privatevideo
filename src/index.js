@@ -31,14 +31,14 @@ app.get('/', (req, res) => {
 
 	
 	
-	//get data on both movies:
+	//get private video URL:
 	const client = new apiVideo.Client({ apiKey: apiVideoKey });
 	let videoId = "vitkytkieTnEvUjKE0VQpd2";
 	let privateVideo = client.videos.get(videoId);
 
 	privateVideo.then(function(pvtVideo){
 		console.log(pvtVideo);
-		var playerUrl= (pvtVideo.assets.iframe);
+		var playerUrl= (pvtVideo.assets.player);
 		console.log("playerUrl",(playerUrl));
 		var player = {"playerUrl": playerUrl};
 		return res.render('index', player);
